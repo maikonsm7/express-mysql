@@ -1,1 +1,12 @@
-<h2>Meu Projeto</h2>
+<h1>Meu Projeto</h1>
+
+{{#if nome}}
+<p>Bom dia {{nome}}!</p>
+{{else}}
+<p>Bom dia fulano!</p>
+{{/if}}
+
+{{#if auth}}
+<p>Usuário autenticado! Acesse o <a href="/dashboard">Dashboard</a></p>
+<p>Post <a href="/posts">Posts</a></p>
+{{/if}}
