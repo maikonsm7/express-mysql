@@ -1,8 +1,12 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const mysql = require('mysql')
 const port = 3000
 
 const app = express()
+
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 app.use(express.static('public'))
 
@@ -30,6 +34,44 @@ app.get('/posts', (req, res) => {
     res.render('posts', {posts})
 })
 
-app.listen(port, () => {
-    console.log(`Servidor online. http://localhost:${port}`)
+app.get('/produtos', (req, res) => {
+    const sql = `SELECT * FROM produto`
+    conn.query(sql, (err, data) => {
+        if(err){
+            console.log(err)
+        }else{
+            res.render('produtos', {produtos: data})
+        }
+    })
+})
+
+app.post('/produtos/inserir', (req, res) => {
+    const nome = req.body.nome
+    const preco = req.body.preco
+    const sql = `INSERT INTO produto (nome, preco) VALUES ('${nome}', '${preco}')`
+    conn.query(sql, err => {
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect('/produtos')
+        }
+    })
+})
+
+const conn = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'ecommerceDB'
+})
+
+conn.connect(err => {
+    if(err){
+        console.log(err)
+    }else{
+        console.log('Banco de dados conectado!')
+        app.listen(port, () => {
+            console.log(`Servidor online. http://localhost:${port}`)
+        })
+    }
 })

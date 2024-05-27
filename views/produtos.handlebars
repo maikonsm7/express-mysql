@@ -1,0 +1,19 @@
+<h2>Produtos</h2>
+
+<h1>Cadastrar produto</h1>
+<form action="/produtos/inserir" method="post" class="form">
+<div class="form-control">
+    <label for="nome">Nome do Produto:</label>
+    <input type="text" name="nome">
+    <label for="preco">Preço:</label>
+    <input type="text" name="preco">
+    <input type="submit" value="cadastrar">
+</div>
+</form>
+
+<h2>Produtos cadastrados:</h2>
+<ul>
+    {{#each produtos}}
+    <li>{{nome}} - R$ {{preco}}</li>
+    {{/each}}
+</ul>
