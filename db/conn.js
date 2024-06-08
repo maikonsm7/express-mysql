@@ -1,4 +1,4 @@
-const mysql = require('mysql')
+const mysql = require('mysql') // drive
 
 const pool = mysql.createPool({
     connectionLimit: 10,
