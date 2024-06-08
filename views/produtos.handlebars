@@ -14,7 +14,7 @@
 <h2>Produtos cadastrados:</h2>
 <ul>
     {{#each produtos}}
-    <li>{{nome}} - R$ {{preco}}</li>
+    <li><a href="/produtos/{{idproduto}}">{{nome}} - R$ {{preco}}</a></li>
     {{/each}}
 </ul>
 <a href="/">Voltar</a>

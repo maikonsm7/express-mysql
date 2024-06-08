@@ -44,7 +44,7 @@ app.get('/produtos', (req, res) => {
         }
     })
 })
-
+// inserir produto
 app.post('/produtos/inserir', (req, res) => {
     const nome = req.body.nome
     const preco = req.body.preco
@@ -57,6 +57,20 @@ app.post('/produtos/inserir', (req, res) => {
         } else {
             res.redirect('/produtos')
         }
+    })
+})
+// buscar produto
+app.get('/produtos/:id', (req, res) => {
+    const id = req.params.id
+    const sql = `SELECT * FROM produto WHERE idproduto = ${id}`
+    pool.query(sql, (err, data) => {
+        if (err) {
+            console.log(err)
+            return
+        } 
+        
+        const produto = data[0] // sempre é retornado um array, mesmo que seja um elemento apenas
+        res.render('produto', {produto})
     })
 })
 
