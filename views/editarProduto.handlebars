@@ -1,0 +1,12 @@
+<h1>Editar produto</h1>
+<form action="/produtos/editar" method="post" class="form">
+<div class="form-control">
+    <input type="hidden" name="id" value="{{produto.idproduto}}">
+    <label for="nome">Nome do Produto:</label>
+    <input type="text" name="nome" value="{{produto.nome}}">
+    <label for="preco">Preço:</label>
+    <input type="text" name="preco" value="{{produto.preco}}">
+    <input type="submit" value="editar">
+</div>
+</form>
+<a href="/produtos/{{produto.idproduto}}">Voltar</a>

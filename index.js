@@ -74,6 +74,48 @@ app.get('/produtos/:id', (req, res) => {
     })
 })
 
+// editar produto
+app.get('/produtos/editar/:id', (req, res)=>{
+    const id = req.params.id
+    const sql = `SELECT * FROM produto WHERE idproduto = ${id}`
+    pool.query(sql, (err, data) => {
+        if (err) {
+            console.log(err)
+            return
+        } 
+        
+        const produto = data[0]
+        res.render('editarProduto', {produto})
+    })
+})
+
+app.post('/produtos/editar', (req, res)=>{
+    const id = req.body.id
+    const nome = req.body.nome
+    const preco = req.body.preco
+    // preparando a query
+    const sql = `UPDATE produto SET nome = '${nome}', preco = ${preco} WHERE idproduto = ${id}`
+    pool.query(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect('/produtos/' + id)
+        }
+    })
+})
+// remover produto
+app.get('/produtos/remover/:id', (req, res)=>{
+    const id = req.params.id
+    const sql = `DELETE FROM produto WHERE idproduto = ${id}`
+    pool.query(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect('/produtos')
+        }
+    })
+})
+
 app.listen(port, () => {
     console.log(`Servidor online. http://localhost:${port}`)
 })
